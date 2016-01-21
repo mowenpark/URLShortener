@@ -25,6 +25,7 @@ class ShortenedUrl < ActiveRecord::Base
     primary_key: :id
 
   has_many :visitors,
+    Proc.new { distinct },
     through: :visits,
     source: :user
 
@@ -44,6 +45,21 @@ class ShortenedUrl < ActiveRecord::Base
     end
 
     potential_code
+  end
+
+  def num_clicks
+    self.visits.count
+  end
+
+  def num_uniques
+    self.visitors.select(:user_id).count
+  end
+
+  def num_recent_uniques(min = 10)
+    self.visitors.
+      where('visits.created_at > ?', min.minutes.ago).
+      select(:user_id).
+      count
   end
 
 end

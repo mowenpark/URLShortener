@@ -10,7 +10,7 @@
 #
 
 class Visit < ActiveRecord::Base
-  validates :url_id, presence: true, uniqueness: true
+  validates :url_id, presence: true
   validates :user_id, presence: true
 
   belongs_to :user
