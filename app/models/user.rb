@@ -14,8 +14,8 @@ class User < ActiveRecord::Base
     uniqueness: true
 
   has_many :shortened_urls,
-  class_name: :ShortenedUrl,
-  foreign_key: :submitter_id,
-  primary_key: :id
-  
+    class_name: :ShortenedUrl,
+    foreign_key: :submitter_id,
+    primary_key: :id
+
 end
